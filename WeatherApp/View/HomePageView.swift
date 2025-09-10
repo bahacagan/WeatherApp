@@ -9,38 +9,43 @@ import SwiftUI
 
 struct HomePageView: View {
     @StateObject var searchViewModel = SearchViewModel()
-    @State var text: String = ""
     var body: some View {
-        ZStack {
-            //background
-            Color("BackgroundColor").ignoresSafeArea(edges: .all)
-            
-            VStack {
-                TextField("Enter the city", text: $text)
-                    .padding()
-                    .frame(height: 50)
-                    .font(.title)
-                    .background(Color("SearchColor").opacity(0.8))
-                    .cornerRadius(10)
-                    .padding()
+        NavigationStack {
+            ZStack {
+                //background
+                Color("BackgroundColor").ignoresSafeArea(edges: .all)
                 
-                Button {
-                    Task {
-                        
-                    }
-                } label: {
-                    Text("Search")
-                        .foregroundStyle(Color.white)
-                        .frame(maxWidth: .infinity, minHeight: 50)
+                VStack {
+                    TextField("Enter the city", text: $searchViewModel.cityText)
+                        .padding()
+                        .frame(height: 50)
                         .font(.title)
-                        .background(Color("SearchButtonColor"))
+                        .background(Color("SearchColor").opacity(0.8))
                         .cornerRadius(10)
-                        .padding(.horizontal,10)
-                }
-
+                        .padding()
                     
-                Spacer()
+                    Button {
+                        Task {
+                            await searchViewModel.search()
+                        }
+                    } label: {
+                        Text("Search")
+                            .foregroundStyle(Color.white)
+                            .frame(maxWidth: .infinity, minHeight: 50)
+                            .font(.title)
+                            .background(Color("SearchButtonColor"))
+                            .cornerRadius(10)
+                            .padding(.horizontal,10)
+                    }
+                    
+                    if let location = searchViewModel.cityResult {
+                        CityInfoView(location: location)
+                    }
+                    
+                    Spacer()
+                }
             }
+            .navigationTitle("Weather")
         }
     }
 }
