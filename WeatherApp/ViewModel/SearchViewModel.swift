@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+
+
+class SearchViewModel: ObservableObject {
+    private let geocodingService = GeocodingService()
+    @Published var cityText: String = ""
+    
+    
+    
+}
