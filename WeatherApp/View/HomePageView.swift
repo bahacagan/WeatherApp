@@ -8,8 +8,24 @@
 import SwiftUI
 
 struct HomePageView: View {
+    @State var text: String = ""
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            //background
+            Color("BackgroundColor").ignoresSafeArea(edges: .all)
+            
+            VStack {
+                TextField("Enter the city", text: $text)
+                    .padding()
+                    .frame(height: 50)
+                    .font(.title)
+                    .background(Color("SearchColor").opacity(0.8))
+                    .cornerRadius(10)
+                    .padding()
+                    
+                Spacer()
+            }
+        }
     }
 }
 
