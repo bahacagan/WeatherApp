@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomePageView: View {
     @StateObject var searchViewModel = SearchViewModel()
+    @State private var showErrorAlert = false
     var body: some View {
         NavigationStack {
             ZStack {
@@ -27,6 +28,9 @@ struct HomePageView: View {
                     Button {
                         Task {
                             await searchViewModel.search()
+                            if searchViewModel.errorMessage != nil {
+                                showErrorAlert = true
+                            }
                         }
                     } label: {
                         Text("Search")
@@ -38,8 +42,16 @@ struct HomePageView: View {
                             .padding(.horizontal,10)
                     }
                     
-                    if let location = searchViewModel.cityResult {
-                        CityInfoView(location: location)
+                    ScrollView{
+                        LazyVStack {
+                            ForEach(searchViewModel.cityResults) {city in
+                                NavigationLink(destination:
+                                        WeatherDetailView(geocodingResult: city)
+                                ) {
+                                    CityInfoView(location: city)
+                                }
+                            }
+                        }
                     }
                     
                     Spacer()
@@ -47,6 +59,13 @@ struct HomePageView: View {
             }
             .navigationTitle("Weather")
         }
+        .alert("Error", isPresented: $showErrorAlert) {
+                        Button("OK", role: .cancel) {
+                            searchViewModel.errorMessage = nil
+                        }
+                    } message: {
+                        Text(searchViewModel.errorMessage ?? "")
+                    }
     }
 }
 

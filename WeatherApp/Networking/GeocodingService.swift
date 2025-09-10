@@ -21,7 +21,7 @@ final class GeocodingService {
         components.path = API.Geocoding.path
         components.queryItems = [
             URLQueryItem(name: "name", value: city),
-            URLQueryItem(name: "count", value: "1"),
+            URLQueryItem(name: "count", value: "10"),
             URLQueryItem(name: "language", value: "tr")
         ]
         

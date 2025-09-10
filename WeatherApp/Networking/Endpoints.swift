@@ -17,7 +17,7 @@ struct API {
 
     struct Forecast {
         static let scheme = "https"
-        static let host = "https://api.open-meteo.com"
+        static let host = "api.open-meteo.com"
         static let path = "/v1/forecast"
     }
 }

@@ -34,7 +34,6 @@ struct CityInfoView: View {
                     .foregroundStyle(Color("PopulationColor"))
             }
                 
-                
             Spacer()
         }
         .padding()

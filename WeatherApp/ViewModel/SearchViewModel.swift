@@ -6,13 +6,13 @@
 //
 
 import Foundation
-
+import Combine
 
 @MainActor
 class SearchViewModel: ObservableObject {
     private let geocodingService = GeocodingService()
     @Published var cityText: String = ""
-    @Published var cityResult: GeocodingResult? = nil
+    @Published var cityResults: [GeocodingResult] = []
     @Published var errorMessage: String? = nil
     
     func search() async {
@@ -21,18 +21,19 @@ class SearchViewModel: ObservableObject {
             return
         }
         
+        // clean the past search results
+        cityResults = []
+        errorMessage = nil
+        
         do {
             let response = try await geocodingService.fetchCoordinates(for: cityText)
-            
-            if let result = response.results?.first {
-                cityResult = result
-            } else {
-                cityResult = nil
-                errorMessage = "City not found"
-            }
+
+            let results = response.results ?? []
+            cityResults = results
+            errorMessage = results.isEmpty ? "Şehir bulunamadı" : nil
             
         } catch  {
-            cityResult = nil
+            cityResults = []
             errorMessage = "Something went wrong"
         }
         
