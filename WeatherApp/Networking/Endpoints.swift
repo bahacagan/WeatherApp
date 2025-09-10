@@ -10,10 +10,14 @@ import Foundation
 
 struct API {
     struct Geocoding {
-        static let baseURL = "https://geocoding-api.open-meteo.com/v1"
+        static let scheme = "https"
+        static let host = "geocoding-api.open-meteo.com"
+        static let path = "/v1/search"
     }
 
     struct Forecast {
-        static let baseURL = "https://api.open-meteo.com/v1"
+        static let scheme = "https"
+        static let host = "https://api.open-meteo.com"
+        static let path = "/v1/forecast"
     }
 }
