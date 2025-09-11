@@ -21,7 +21,7 @@ struct FavouritesView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 ScrollView {
-                    LazyVStack {
+                    LazyVStack(spacing: 10) {
                         ForEach(favStore.favourites) { city in
                             
                             HStack {
@@ -31,7 +31,10 @@ struct FavouritesView: View {
                                     CityInfoView(location: city)
                                 }
                                 Button {
-                                    favStore.remove(city)
+                                    withAnimation(.easeOut) {
+                                        favStore.remove(city)
+                                    }
+                                    
                                 } label: {
                                     Image(systemName: "xmark.circle")
                                         .font(.title)
@@ -41,6 +44,7 @@ struct FavouritesView: View {
                             }
                         }
                     }
+                    .padding(.vertical, 5)
                 }
                 
                 

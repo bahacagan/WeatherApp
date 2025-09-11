@@ -25,7 +25,10 @@ final class ForecastService {
             URLQueryItem(name: "latitude", value: "\(lat)"),
                 URLQueryItem(name: "longitude", value: "\(lon)"),
                 URLQueryItem(name: "current_weather", value: "true"),
-                URLQueryItem(name: "timezone", value: "auto")
+                URLQueryItem(name: "timezone", value: "auto"),
+                URLQueryItem(name: "daily", value: "temperature_2m_max,temperature_2m_min,weather_code,sunrise,sunset"),
+                URLQueryItem(name: "past_days", value: "6"),
+                URLQueryItem(name: "forecast_days", value: "1")
         ]
         
         guard let url = components.url else {

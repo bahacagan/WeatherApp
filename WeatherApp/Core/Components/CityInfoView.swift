@@ -13,19 +13,16 @@ struct CityInfoView: View {
         VStack{
             HStack {
                 Text(location.name)
-                    .foregroundColor(Color("TextColor"))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.title)
                 
                 if let country = location.country {
                     Text(country)
-                        .foregroundStyle(Color(#colorLiteral(red: 0.564285934, green: 0.4919891357, blue: 0.8239292502, alpha: 1)))
                         .font(.caption)
                 }
             }
             
             Text("Lat: \(String(format: "%.2f", location.latitude)),    Lon: \(String(format: "%.2f", location.longitude))")
-                .foregroundColor(Color("TextColor"))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             if let population = location.population {
@@ -41,8 +38,8 @@ struct CityInfoView: View {
         .frame(height: 100)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color.white)
-                .shadow(color: Color.purple, radius: 5)
+                .fill(Color("CityCardColor"))
+                .shadow(color: Color.white.opacity(0.5), radius: 2)
         )
         .padding(.horizontal)
         

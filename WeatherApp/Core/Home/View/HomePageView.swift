@@ -22,10 +22,11 @@ struct HomePageView: View {
                         .padding()
                         .frame(height: 50)
                         .font(.title)
-                        .background(Color("SearchColor").opacity(0.8))
+                        .background(.gray.opacity(0.5))
                         .cornerRadius(10)
                         .padding()
                     
+                    //Search Button
                     Button {
                         Task {
                             await searchViewModel.search()
@@ -43,8 +44,9 @@ struct HomePageView: View {
                             .padding(.horizontal,10)
                     }
                     
+                    // Search results are listed here
                     ScrollView{
-                        LazyVStack {
+                        LazyVStack(spacing: 10) {
                             ForEach(searchViewModel.cityResults) {city in
                                 
                                 NavigationLink(destination:
@@ -54,17 +56,19 @@ struct HomePageView: View {
                                 }
                             }
                         }
+                        .padding(.vertical, 5)
                     }
+                    .padding(.top, 10)
                     
-                    Spacer()
                 }
             }
             .navigationTitle("Weather")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink(destination: FavouritesView()) {
-                        Image(systemName: "heart.fill")
-                            .foregroundStyle(Color.red)
+                        Image(systemName: "star")
+                            .font(.title)
+                            .foregroundStyle(Color("StarColor"))
                     }
                 }
             }
