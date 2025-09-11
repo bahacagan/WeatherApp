@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomePageView: View {
     @StateObject var searchViewModel = SearchViewModel()
+    @EnvironmentObject var favStore : FavouritesStore
     @State private var showErrorAlert = false
     var body: some View {
         NavigationStack {
@@ -45,6 +46,7 @@ struct HomePageView: View {
                     ScrollView{
                         LazyVStack {
                             ForEach(searchViewModel.cityResults) {city in
+                                
                                 NavigationLink(destination:
                                         WeatherDetailView(geocodingResult: city)
                                 ) {
@@ -58,6 +60,14 @@ struct HomePageView: View {
                 }
             }
             .navigationTitle("Weather")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink(destination: FavouritesView()) {
+                        Image(systemName: "heart.fill")
+                            .foregroundStyle(Color.red)
+                    }
+                }
+            }
         }
         .alert("Error", isPresented: $showErrorAlert) {
                         Button("OK", role: .cancel) {
@@ -71,4 +81,5 @@ struct HomePageView: View {
 
 #Preview {
     HomePageView()
+        .environmentObject(FavouritesStore())
 }

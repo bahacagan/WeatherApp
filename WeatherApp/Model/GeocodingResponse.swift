@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct GeocodingResponse: Decodable {
+struct GeocodingResponse: Codable {
     let results: [GeocodingResult]?
 }
 
 
-struct GeocodingResult: Decodable, Identifiable {
+struct GeocodingResult: Codable, Identifiable {
     let id: Int
     let name: String
     let latitude: Double

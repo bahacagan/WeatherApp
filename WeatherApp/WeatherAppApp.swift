@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct WeatherAppApp: App {
+    @StateObject var favStore = FavouritesStore()
     var body: some Scene {
         WindowGroup {
             HomePageView()
+                .environmentObject(favStore)
         }
     }
 }

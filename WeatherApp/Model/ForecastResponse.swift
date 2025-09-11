@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct ForecastResponse: Decodable {
+struct ForecastResponse: Codable {
     let latitude: Double
     let longitude: Double
     let timezone: String
@@ -16,7 +16,7 @@ struct ForecastResponse: Decodable {
 }
 
 
-struct CurrentWeather: Decodable {
+struct CurrentWeather: Codable {
     let temperature: Double
     let windspeed: Double
     let winddirection: Double

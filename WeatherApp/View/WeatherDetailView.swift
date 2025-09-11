@@ -10,6 +10,7 @@ import SwiftUI
 struct WeatherDetailView: View {
     let geocodingResult: GeocodingResult
     @StateObject private var forecastViewModel = ForecastViewModel()
+    @EnvironmentObject var favStore : FavouritesStore
     var body: some View {
         VStack(spacing: 16) {
             // Şehir adı başlık
@@ -41,6 +42,24 @@ struct WeatherDetailView: View {
                 ProgressView("Loading...")
             }
 
+            Button {
+                favStore.add(geocodingResult)
+            } label: {
+                HStack {
+                    Image(systemName: "heart.fill")
+                        .foregroundStyle(.red)
+                        .font(.title)
+                    Text("Add to favorites")
+                        .font(.title)
+                        .foregroundStyle(Color("TextColor"))
+                }
+                .padding(16)
+                .frame(maxWidth: .infinity)
+                .background(Color.purple.opacity(0.5))
+                .cornerRadius(10)
+            }
+
+            
             Spacer()
         }
         .padding()

@@ -18,11 +18,15 @@ final class FavouritesStore: ObservableObject {
     }
     
     func add(_ city: GeocodingResult){
+        
+        guard !favourites.contains(where: {$0.id == city.id}) else { return }
         favourites.append(city)
+        save()
     }
     
     func remove(_ city: GeocodingResult){
-        
+        favourites.removeAll { $0.id == city.id }
+        save()
     }
     func load(){
         guard let data = UserDefaults.standard.data(forKey: key),
