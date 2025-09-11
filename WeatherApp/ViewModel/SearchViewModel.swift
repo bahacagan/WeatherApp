@@ -11,9 +11,12 @@ import Combine
 @MainActor
 class SearchViewModel: ObservableObject {
     private let geocodingService = GeocodingService()
+    private var cancellables: Set<AnyCancellable> = []
     @Published var cityText: String = ""
     @Published var cityResults: [GeocodingResult] = []
     @Published var errorMessage: String? = nil
+    
+    
     
     func search() async {
         // If input is empty early return
